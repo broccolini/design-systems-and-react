@@ -1,0 +1,20 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "A theme for mdx-slides",
+  "main": "index.js",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "keywords": [
+    "theme"
+  ],
+  "author": "Diana Mounter",
+  "license": "MIT",
+  "devDependencies": {
+    "mdx-deck": "^1.0.2"
+  },
+  "dependencies": {
+    "superbox": "^2.1.0"
+  }
+}

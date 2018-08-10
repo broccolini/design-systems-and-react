@@ -1,8 +1,505 @@
-import Layout from './QuoteLayout'
+import { Image } from 'mdx-deck'
+import { FullScreenCode } from 'mdx-deck/layouts'
+import QuoteLayout from './QuoteLayout'
 export { default as theme } from './theme'
 
-# This is a slide
----
-export default Layout
+# Building design systems with React
 
-# Custom layout
+@broccolini
+---
+
+# Diana Mounter
+
+Design Operations Manager at GitHub
+
+@broccolini
+
+---
+# Design Systems at GitHub
+
+---
+
+Design systems are..
+
+# Rules, Principles, & Constraints
+
+---
+
+# implemented in design & code
+
+---
+
+**Rule:** minimum color contrast ratio of 4:5:1
+
+**Constraint:** number of colors in the palette
+
+**Principle:** use color in a meaningful way
+
+---
+
+docs + </>
+
+---
+
+## 🎨 → 🤔 😬 🤨 😟 😓 😭 😡 🤪 → ✅
+
+---
+
+## 🎨 → 😎 → ✅
+
+---
+
+# GitHub is 10 years old 🎂
+
+---
+
+# 10 years
+
+of people contributing design and code (debt) 😅
+
+---
+
+# Ruby on Rails
+
+partials & helpers != components
+
+---
+
+# 🚂  we can't stop the train
+
+```notes
+We can't stop everything to build the perfect system.
+```
+
+---
+
+# Primer
+
+GitHub's design system
+
+---
+
+**O**bject **O**riented **CSS**
+
+**B**lock **E**lement **M**odifier
+
+Atomic / Functional / **Utility-centric CSS**
+
+---
+
+People no longer had to write much CSS
+
+---
+
+Easier to design in the browser
+
+---
+
+Styles based on systems, worked more harmoniously, flexible but consistent.
+
+---
+
+Obvious and transparent
+
+---
+
+# Problems
+
+---
+
+export default QuoteLayout
+
+```html
+<div class="bg-gray-light border border-black-fade rounded p-2 p-md-4 p-lg-6 my-4">
+```
+
+```notes
+Lots of classes in the markup.
+```
+
+---
+
+export default QuoteLayout
+
+```html
+<div class="border p-2 rounded">
+  <input class="form-input form-input--large">
+  </input>
+  <button class="btn btn--primary ml-2">
+    Search
+  </button>
+</div>
+```
+
+```notes
+Lots of repeated markup
+```
+---
+
+```scss
+.wiki-list {
+
+  em {
+    padding: 3px;
+    font-style: normal;
+    font-weight: $font-weight-bold;
+    background-color: rgba(255, 255, 140, 0.5);
+    border-radius: 3px;
+  }
+
+  .description {
+    margin: 0 0 10px;
+    overflow: hidden;
+    line-height: 20px;
+  }
+
+  .wiki-list-item + .wiki-list-item {
+    border-top: $border;
+  }
+}
+```
+
+---
+
+```scss
+.issue-list {
+
+  em {
+    padding: 3px;
+    font-style: normal;
+    font-weight: $font-weight-bold;
+    background-color: rgba(255, 255, 140, 0.5);
+    border-radius: 3px;
+  }
+
+  .description {
+    margin: 0 0 10px;
+    overflow: hidden;
+    line-height: 20px;
+  }
+
+  .issue-list-item + .issue-list-item {
+    border-top: $border;
+  }
+}
+```
+
+```notes
+The only thing that's different is the name of the class selector.
+```
+
+---
+
+![](/images/css-leak.png)
+
+---
+
+![](/images/discussion-timeline.png)
+
+```notes
+There are parts of our code-base we're afraid to touch. One of them is a scss partial named the discussion timeline. It's the source of a huge amount of CSS bugs.
+```
+
+---
+
+![](/images/discussion-timeline-connectors.png)
+
+```notes
+A recent update to the comment component caused a cascade of UI bugs with the line connector.
+```
+
+---
+
+![](/images/expectations.png)
+
+```notes
+Parts of GitHub don't respond the way people expect.
+```
+
+---
+
+# Enter React.js
+
+---
+
+![](/images/css-leak.png)
+
+```notes
+An obvious advantage is the opportunity to encapsulate styles.
+```
+
+---
+
+![](/images/encapsulation.png)
+
+---
+
+Unit tests
+
+---
+
+📍 start here
+
+```notes
+So where did we start.
+```
+
+---
+
+# Progress is better than correctness
+
+```notes
+Starting with practical, small steps, that help you begin making progress is better than doing what you imagine the perfect
+```
+
+---
+
+```jsx
+const classes = classnames(
+  className,
+  'State',
+  {
+    'State--small': small
+  }
+)
+```
+
+```notes
+using primer css
+```
+---
+export default QuoteLayout
+
+# Presentational vs Container components
+
+— Dan Abramov
+
+---
+
+Presentational components are concerned with _how things look_
+
+```notes
+but how do you decide what's a component or not, what props to make available, how to share the
+```
+
+---
+export default QuoteLayout
+
+# Separate structure and skin
+
+Nicole Sullivan
+
+---
+
+![](/images/distribute1.png)
+
+```notes
+GitHub.com is not the only application or website we maintain.
+```
+
+---
+
+![](/images/distribute2.png)
+
+```notes
+We want systems to build many websites, that might not always be themed the same, or need the same components.
+```
+
+---
+export default QuoteLayout
+
+# Brand on a spectrum
+
+— Sophie Shepherd
+
+---
+
+![](/images/brand-scale.png)
+
+---
+
+Layout: display, position, padding, margin...
+
+---
+
+Common components: Alert, Button, Label...
+
+---
+
+Theme: typography scale, spacing scale, color...
+
+---
+
+# Composability
+
+---
+
+# Sharing system props
+
+with styled-system & emotion.js
+
+---
+
+```jsx
+// theme.js
+{
+  "fontSizes": [
+    12,
+    14,
+    16,
+    20,
+    24,
+    32,
+    40,
+    48
+  ]
+}
+```
+---
+
+// All components
+
+`const Box = system('color', 'space')`
+
+
+// Typography components
+
+`const Text = system('fontSize', 'fontWeight', 'lineHeight')`
+
+// Layout components
+
+`const Box = system('display', 'width')`
+
+---
+
+```jsx
+import {Box, Text, Heading} from 'primer-react'
+
+const SiteHero = props => (
+  <Box p={[2,4,6]} bg='black' color='white'>
+    <Heading fontSize={6}>{props.title}</Heading>
+    <Text tag='p'>{props.description}</Text>
+  </Box>
+)
+
+//export default SiteHero
+```
+
+```notes
+Not every component needs to be in the design system
+```
+
+---
+export default QuoteLayout
+
+# Everything is a component
+
+Thinking in React
+
+---
+
+```jsx
+// this
+<Box p={[3,4,6]} my={4}>
+  <Heading>Hello world</Heading>
+</Box>
+```
+
+```jsx
+// not this
+<div className='Box p-3 p-md-4 p-lg-6 my-4'>
+  <h1>Hello world</h1>
+</div>
+```
+
+---
+
+![](/images/encapsulation.png)
+
+```notes
+because we want to keep styles encapsulated
+```
+
+---
+export default QuoteLayout
+
+# Minimal API surface area
+
+— Sebastián Markbage
+
+```notes
+re-using patterns
+```
+
+---
+
+# Re-use patterns
+
+---
+
+```jsx
+// System props
+<Box p={3} bg='blue.2' color='blue.9' />
+<Text mb={2} color='red.5' />
+```
+
+```jsx
+
+// Scheme props
+<Label scheme='red' />
+<Flash scheme='green' />
+```
+
+---
+
+# Watch out for the apropcalypse
+
+---
+
+Example
+
+---
+
+Maybe it should be another component?
+
+---
+
+# Design the public API before you build it
+
+```notes
+Readme-driven devvelopment
+```
+
+---
+
+# Components in dot com?
+
+---
+
+![](/images/graphql.png)
+
+---
+
+![](/images/sprinkle.png)
+
+---
+
+# tbc...
+
+---
+
+# What about web components?
+
+```notes
+Huge barrier to use...
+```
+
+---
+
+**All our** product & web **designers code**
+
+---
+
+![](/images/design-flow.png)
+
+---

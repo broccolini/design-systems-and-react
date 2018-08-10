@@ -1,32 +1,51 @@
 // Lobster theme.js
+import theme from 'mdx-deck/themes'
+import { future } from 'mdx-deck/themes'
+import okaidia from 'react-syntax-highlighter/styles/prism/okaidia'
+import dark from 'react-syntax-highlighter/styles/prism/dark'
+const monospace = 'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace'
+const lobster = 'Lobster, Georgia, serif'
+
 export default {
-  font: 'Lobster',
-  monospace: 'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace',
-  fontSizes: [
-    16, 24, 32, 48, 64, 96, 128
-  ],
+  ...theme,
+  font: lobster,
+  monospace,
+  prism: {
+    style: okaidia
+  },
+  // fontSizes: [ 16, 24, 32, 48, 64, 96, 128 ],
   colors: {
     text: '#000',
     background: 'transparent',
-    link: '#07c',
-    heading: '#000',
-    quote: '#000',
-    pre: '#f0f',
-    preBackground: '#333',
-    code: '#f0f',
-    codeBackground: 'transparent',
+    link: '#0366D6',
+    pre: '#fff',
+    preBackground: '#000',
+    code: '#111',
+    codeBackground: '#E1E4E8',
   },
   css: {
-    // apply any styles to the root element
+    ...theme.css,
+    textAlign: 'left',
+    '& .Slide': {
+      width: '100%',
+      alignItems: 'flex-start'
+    }
   },
-  // custom CSS can be provided to any of the default components:
   heading: {
+    fontFamily: lobster,
     fontWeight: 400
+  },
+  p: {
+    fontFamily: monospace,
+    fontSize: '1em'
   },
   link: {
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'underline',
     }
-  }
+  },
+  // blockquote: {
+  //   fontSize:
+  // }
 }

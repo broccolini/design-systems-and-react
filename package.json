@@ -4,7 +4,7 @@
   "description": "A theme for mdx-slides",
   "main": "index.js",
   "scripts": {
-    "start": "mdx-deck deck.mdx"
+    "start": "mdx-deck deck.mdx -p 8989"
   },
   "keywords": [
     "theme"
@@ -12,7 +12,7 @@
   "author": "Diana Mounter",
   "license": "MIT",
   "devDependencies": {
-    "mdx-deck": "^1.0.2"
+    "mdx-deck": "^1.5.14"
   },
   "dependencies": {
     "superbox": "^2.1.0"

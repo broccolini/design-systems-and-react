@@ -4,7 +4,8 @@
   "description": "A theme for mdx-slides",
   "main": "index.js",
   "scripts": {
-    "start": "mdx-deck deck.mdx -p 8989"
+    "start": "mdx-deck deck.mdx -p 8989",
+    "build": "mdx-deck build deck.mdx"
   },
   "keywords": [
     "theme"

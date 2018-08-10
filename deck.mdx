@@ -3,9 +3,8 @@ import { FullScreenCode } from 'mdx-deck/layouts'
 import QuoteLayout from './QuoteLayout'
 export { default as theme } from './theme'
 
-# Building design systems with React
+# Design Systems & React
 
-@broccolini
 ---
 
 # Diana Mounter
@@ -37,11 +36,15 @@ Design systems are..
 
 ---
 
-docs + </>
+![](/images/flash-error.png)
+
+```notes
+An implementation example is the design and code for this flash message
+```
 
 ---
 
-## 🎨 → 🤔 😬 🤨 😟 😓 😭 😡 🤪 → ✅
+## 🎨 → 🤔 😟 😭 → ✅
 
 ---
 
@@ -61,29 +64,31 @@ of people contributing design and code (debt) 😅
 
 # Ruby on Rails
 
-partials & helpers != components
+```notes
+and it's a monolith
+```
 
 ---
 
 # 🚂  we can't stop the train
 
 ```notes
-We can't stop everything to build the perfect system.
+When we formed the design systems team, we couldn't stop everything to build the perfect system.
 ```
 
 ---
 
-# Primer
+# Primer CSS
 
 GitHub's design system
 
 ---
 
-**O**bject **O**riented **CSS**
+Object Oriented CSS (OOCSS)
 
-**B**lock **E**lement **M**odifier
+Block Element Modifier (BEM)
 
-Atomic / Functional / **Utility-centric CSS**
+Functional CSS (Utilities)
 
 ---
 
@@ -95,11 +100,9 @@ Easier to design in the browser
 
 ---
 
-Styles based on systems, worked more harmoniously, flexible but consistent.
+![](/images/typography.png)
 
----
-
-Obvious and transparent
+Styles based on systems worked more harmoniously
 
 ---
 
@@ -110,7 +113,8 @@ Obvious and transparent
 export default QuoteLayout
 
 ```html
-<div class="bg-gray-light border border-black-fade rounded p-2 p-md-4 p-lg-6 my-4">
+<div class="bg-gray-light border border-black-fade
+rounded p-2 p-md-4 p-lg-6 my-4">
 ```
 
 ```notes
@@ -136,7 +140,9 @@ Lots of repeated markup
 ```
 ---
 
-```scss
+export default QuoteLayout
+
+```css
 .wiki-list {
 
   em {
@@ -161,7 +167,9 @@ Lots of repeated markup
 
 ---
 
-```scss
+export default QuoteLayout
+
+```css
 .issue-list {
 
   em {
@@ -218,23 +226,7 @@ Parts of GitHub don't respond the way people expect.
 
 ---
 
-# Enter React.js
-
----
-
-![](/images/css-leak.png)
-
-```notes
-An obvious advantage is the opportunity to encapsulate styles.
-```
-
----
-
-![](/images/encapsulation.png)
-
----
-
-Unit tests
+# Primer React
 
 ---
 
@@ -246,15 +238,11 @@ So where did we start.
 
 ---
 
-# Progress is better than correctness
-
-```notes
-Starting with practical, small steps, that help you begin making progress is better than doing what you imagine the perfect
-```
-
----
+export default QuoteLayout
 
 ```jsx
+import classnames from 'classnames'
+
 const classes = classnames(
   className,
   'State',
@@ -267,12 +255,23 @@ const classes = classnames(
 ```notes
 using primer css
 ```
+
+---
+
+# Progress is better than correctness
+
+```notes
+Starting with practical, small steps, that help you begin making progress is better than doing what you imagine the perfect
+```
+
 ---
 export default QuoteLayout
 
-# Presentational vs Container components
+# Presentational components
 
 — Dan Abramov
+
+Presentational vs container components
 
 ---
 
@@ -281,13 +280,6 @@ Presentational components are concerned with _how things look_
 ```notes
 but how do you decide what's a component or not, what props to make available, how to share the
 ```
-
----
-export default QuoteLayout
-
-# Separate structure and skin
-
-Nicole Sullivan
 
 ---
 
@@ -310,7 +302,11 @@ export default QuoteLayout
 
 # Brand on a spectrum
 
-— Sophie Shepherd
+— [Sophie Shepherd](https://speakerdeck.com/sophshep/wrangling-githubs-brand)
+
+```notes
+Not all those sites look exactly like GitHub
+```
 
 ---
 
@@ -318,27 +314,56 @@ export default QuoteLayout
 
 ---
 
-Layout: display, position, padding, margin...
+# Flexibility vs consistency
+
+```notes
+How do we share styles that let you be consistent with brand and flexible when you need to be?
+```
+
+---
+export default QuoteLayout
+
+# Separate structure and skin
+
+Nicole Sullivan
 
 ---
 
-Common components: Alert, Button, Label...
+**Layout:** display, position, padding, margin...
+
+```notes
+Layout styles are what controls the structure. These are useful for pretty much every website or application you build. They have no theming or "skin".
+```
 
 ---
 
-Theme: typography scale, spacing scale, color...
+**Common components:** Alert, Button, Label...
+
+```notes
+Most web applications need things like Alerts, Buttons, Labels, etc. But marketing websites might not need a lot of these components.
+```
 
 ---
 
-# Composability
+**Theme:** typography scale, spacing scale, color...
+
+```notes
+The theme values are used in both layout and common components. For example you might have a spacing scale for padding and margin. Sometimes sites need to stick closely to the theme, sometimes they won't. Ideally you should be able to swap out the theme and use the same component markup.
+```
 
 ---
 
 # Sharing system props
 
-with styled-system & emotion.js
+with [styled-system](https://github.com/jxnblk/styled-system) & [emotion.js](https://github.com/emotion-js/emotion)
+
+```notes
+Alongside CSS from Primer, we started using emotion and styled system to share common system props, like color, spacing, and typography.
+```
 
 ---
+
+export default QuoteLayout
 
 ```jsx
 // theme.js
@@ -355,22 +380,37 @@ with styled-system & emotion.js
   ]
 }
 ```
+
+```notes
+Theme values like typography, spacing, and color are stored in a theme.js file.
+```
 ---
 
+export default QuoteLayout
+
+```jsx
 // All components
+const Base = system('color', 'space')
+```
 
-`const Box = system('color', 'space')`
-
-
+```jsx
 // Typography components
+const Text = system('fontSize', 'fontWeight',
+'lineHeight')
+```
 
-`const Text = system('fontSize', 'fontWeight', 'lineHeight')`
-
+```jsx
 // Layout components
+const Box = system('display', 'width')
+```
 
-`const Box = system('display', 'width')`
+```notes
+We started off too restrictive with how we shared our system props. Now we've started to create categories of components and they get a common set of props.
+```
 
 ---
+
+export default QuoteLayout
 
 ```jsx
 import {Box, Text, Heading} from 'primer-react'
@@ -381,12 +421,10 @@ const SiteHero = props => (
     <Text tag='p'>{props.description}</Text>
   </Box>
 )
-
-//export default SiteHero
 ```
 
 ```notes
-Not every component needs to be in the design system
+This offers a lot of flexibility and makes it easy for applications consuming Primer-react to create new components with primer components and system props.
 ```
 
 ---
@@ -394,22 +432,36 @@ export default QuoteLayout
 
 # Everything is a component
 
-Thinking in React
+[Thinking in React](https://reactjs.org/docs/thinking-in-react.html)
+
+```notes
+We started to develop some principles, drawing inspiration from things like the Thinking in React documentation
+```
 
 ---
 
+export default QuoteLayout
+
 ```jsx
 // this
-<Box p={[3,4,6]} my={4}>
+<BorderBox my={4}>
   <Heading>Hello world</Heading>
-</Box>
+</BorderBox>
 ```
 
 ```jsx
 // not this
-<div className='Box p-3 p-md-4 p-lg-6 my-4'>
+<div className='border rounded p-3 p-md-4 p-lg-6 my-4'>
   <h1>Hello world</h1>
 </div>
+```
+
+---
+
+![](/images/css-leak.png)
+
+```notes
+we don't want to rely on CSS inheritance
 ```
 
 ---
@@ -417,7 +469,7 @@ Thinking in React
 ![](/images/encapsulation.png)
 
 ```notes
-because we want to keep styles encapsulated
+because we want to keep styles encapsulated and reduce the damage they could do
 ```
 
 ---
@@ -437,6 +489,8 @@ re-using patterns
 
 ---
 
+export default QuoteLayout
+
 ```jsx
 // System props
 <Box p={3} bg='blue.2' color='blue.9' />
@@ -452,11 +506,15 @@ re-using patterns
 
 ---
 
+export default QuoteLayout
+
 # Watch out for the apropcalypse
+
+— @gurlcode
 
 ---
 
-Example
+![](/images/apropcalypse.png)
 
 ---
 
@@ -466,13 +524,15 @@ Maybe it should be another component?
 
 # Design the public API before you build it
 
+aka readme-driven devvelopment
+
 ```notes
 Readme-driven devvelopment
 ```
 
 ---
 
-# Components in dot com?
+# Components in github.com?
 
 ---
 
@@ -488,18 +548,6 @@ Readme-driven devvelopment
 
 ---
 
-# What about web components?
-
-```notes
-Huge barrier to use...
-```
-
----
-
-**All our** product & web **designers code**
-
----
-
-![](/images/design-flow.png)
+# Thanks!
 
 ---

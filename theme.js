@@ -2,6 +2,7 @@
 import theme from 'mdx-deck/themes'
 import { future } from 'mdx-deck/themes'
 import okaidia from 'react-syntax-highlighter/styles/prism/okaidia'
+import twilight from 'react-syntax-highlighter/styles/prism/twilight'
 import dark from 'react-syntax-highlighter/styles/prism/dark'
 const monospace = 'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace'
 const lobster = 'Lobster, Georgia, serif'
@@ -25,6 +26,9 @@ export default {
   },
   css: {
     ...theme.css,
+    '& pre': {
+      background: '#000 !important',
+    },
     textAlign: 'left',
     '& .Slide': {
       width: '100%',

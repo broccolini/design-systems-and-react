@@ -43,6 +43,11 @@ export default {
     fontFamily: monospace,
     fontSize: '1em'
   },
+  li: {
+    fontFamily: monospace,
+    fontSize: '0.5em',
+    lineHeight: '1.5'
+  },
   link: {
     textDecoration: 'none',
     '&:hover': {

@@ -13,7 +13,7 @@
   "author": "Diana Mounter",
   "license": "MIT",
   "devDependencies": {
-    "mdx-deck": "^1.5.14"
+    "mdx-deck": "^1.5.15"
   },
   "dependencies": {
     "superbox": "^2.1.0"

@@ -251,7 +251,7 @@ using primer css
 # Progress is better than correctness
 
 ```notes
-Starting with practical, small steps, that help you begin making progress is better than doing what you imagine the perfect
+Starting with practical, small steps, that help you begin making progress is better than doing what you imagine the perfect solution to be.
 ```
 
 ---
@@ -268,7 +268,7 @@ export default QuoteLayout
 Presentational components are concerned with _how things look_
 
 ```notes
-but how do you decide what's a component or not, what props to make available, how to share the
+We are focussing on presentational components, because that's more important for our design system, we will probably add some container components for things like forms over time.
 ```
 
 ---
@@ -317,6 +317,10 @@ export default QuoteLayout
 
 — [Nicole Sullivan](https://github.com/stubbornella/oocss/wiki#separate-structure-and-skin)
 
+```notes
+Approaches we took with CSS are still relevant to how we approach design systems with React. Same intent, different implementation.
+```
+
 ---
 
 **Layout:** display, position, padding, margin...
@@ -348,7 +352,7 @@ The theme values are used in both layout and common components. For example you 
 with [styled-system](https://github.com/jxnblk/styled-system) & [emotion.js](https://github.com/emotion-js/emotion)
 
 ```notes
-Alongside CSS from Primer, we started using emotion and styled system to share common system props, like color, spacing, and typography.
+We started to struggle to make primer-react as flexible as we needed it to be. Alongside CSS from Primer, we started using emotion and styled system to share common system props, like color, spacing, and typography.
 ```
 
 ---
@@ -446,6 +450,10 @@ export default QuoteLayout
 </div>
 ```
 
+```notes
+Some developers have asked us why not just use heading tags, why use a component?
+```
+
 ---
 
 ![](/images/css-leak.png)
@@ -459,7 +467,7 @@ we don't want to rely on CSS inheritance
 ![](/images/encapsulation.png)
 
 ```notes
-because we want to keep styles encapsulated and reduce the damage they could do
+because we want to keep styles encapsulated and reduce the damage one component can do, we want to keep the mess contained
 ```
 
 ---
@@ -470,7 +478,7 @@ export default QuoteLayout
 — [Sebastián Markbage](https://youtu.be/4anAwXYqLG8)
 
 ```notes
-re-using patterns
+many folks won't read the documentation, we want developers to be able to quickly learn how to use the design system
 ```
 
 ---
@@ -517,7 +525,7 @@ Maybe it should be another component?
 aka readme-driven development
 
 ```notes
-Readme-driven development
+show what the end result should look like, it's much easier to clearly define goals and have conversations this way 
 ```
 
 ---
